@@ -2,6 +2,8 @@ package com.spring.mvc.chap01;
 
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -63,5 +65,28 @@ public class ControllerV1 {
     }
 
 
+    // == 3. 커맨드 객체 이용하기
+    // == 쿼리 스트링의 양이 너무 많을 경우 또는 연관성이 있을경우
+    // ==> ex) /spring/order?oNum=20230419007-P&goods=구두&amount=3&price=50000...
+
+    @RequestMapping("/order")
+    public String order(OrderRequestDTO dto) {
+        System.out.println("dto = " + dto);
+        return "";
+    }
+
+
+    // == 4. URL에 경로로 붙어있는 데이터 읽기
+    // ==> /spring/member/hong/107
+    //    hong이라는 유저의 107번 게시글을 읽고싶음
+    @RequestMapping("/member/{userName}/{bNo}")
+    public String member(
+            @PathVariable String userName,
+            @PathVariable long bNo
+    ) {
+        System.out.println("userName = " + userName);
+        System.out.println("bNo = " + bNo);
+        return "";
+    }
 
 }
