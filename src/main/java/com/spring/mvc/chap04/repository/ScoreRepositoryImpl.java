@@ -90,4 +90,6 @@ public class ScoreRepositoryImpl implements ScoreRepository {
     public Score findByStuNum(int stuNum) {
         return scoreMap.get(stuNum);
     }
+
+
 }
