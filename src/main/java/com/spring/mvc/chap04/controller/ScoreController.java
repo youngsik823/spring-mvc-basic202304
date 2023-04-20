@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -49,10 +50,12 @@ public class ScoreController {
 
     // 1. 성적등록화면 띄우기 + 정보목록조회
     @GetMapping("/list")
-    public String list(Model model) {
+    public String list(Model model,
+                      @RequestParam(defaultValue = "num") String sort) {
         System.out.println("/score/list : GET!");
+        System.out.println("정렬 요구사항: " + sort);
 
-        List<Score> scoreList = repository.findAll();
+        List<Score> scoreList = repository.findAll(sort);
         model.addAttribute("sList", scoreList);
 
         return "chap04/score-list";
@@ -82,16 +85,22 @@ public class ScoreController {
         return "redirect:/score/list";
     }
     // 3. 성적정보 삭제 요청
-    @PostMapping("/remove")
-    public String remove() {
-        System.out.println("/score/remove : POST!");
-        return "";
+    @GetMapping("/remove")
+    public String remove(int stuNum) {
+        System.out.println("/score/remove : GET!");
+
+        repository.deleteByStuNum(stuNum);
+
+        return "redirect:/score/list";
     }
     // 4. 성적정보 상세 조회 요청
     @GetMapping("/detail")
-    public String detail() {
+    public String detail(int stuNum, Model model) {
         System.out.println("/score/detail : GET!");
-        return "";
+
+        Score score = repository.findByStuNum(stuNum);
+        model.addAttribute("s", score);
+        return "chap04/score-detail";
     }
 
 }
