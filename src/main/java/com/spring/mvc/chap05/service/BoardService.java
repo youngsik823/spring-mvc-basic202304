@@ -34,4 +34,7 @@ public class BoardService {
         return boardRepository.save(new Board(dto));
     }
 
+    public boolean delete(int bno) {
+        return boardRepository.deleteByNo(bno);
+    }
 }
