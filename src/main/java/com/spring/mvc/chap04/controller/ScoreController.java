@@ -1,5 +1,6 @@
 package com.spring.mvc.chap04.controller;
 
+import com.spring.mvc.chap04.dto.ScoreListResponseDTO;
 import com.spring.mvc.chap04.dto.ScoreRequestDTO;
 import com.spring.mvc.chap04.entity.Score;
 import com.spring.mvc.chap04.repository.ScoreRepository;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /*
     # 요청 URL
@@ -56,7 +59,22 @@ public class ScoreController {
         System.out.println("정렬 요구사항: " + sort);
 
         List<Score> scoreList = repository.findAll(sort);
-        model.addAttribute("sList", scoreList);
+
+        // scoreList에서 원하는 정보만 추출하고 이름을 마스킹해서
+        // 다시 DTO리스트로 변환해줘야 한다.
+        List<ScoreListResponseDTO> responseDTOList
+                = scoreList.stream()
+                            .map(ScoreListResponseDTO::new)
+                            .collect(Collectors.toList());
+
+
+//        List<ScoreListResponseDTO> responseDTOList = new ArrayList<>();
+//        for (Score s : scoreList) {
+//            ScoreListResponseDTO dto = new ScoreListResponseDTO(s);
+//            responseDTOList.add(dto);
+//        }
+
+        model.addAttribute("sList", responseDTOList);
 
         return "chap04/score-list";
     }
@@ -102,13 +120,17 @@ public class ScoreController {
     }
 
 
-
     // 5. 수정 화면 열어주기
     @GetMapping("/modify")
     public String modify(int stuNum, Model model) {
         System.out.println("/score/modify : GET!");
         retrieve(stuNum, model);
         return "chap04/score-modify";
+    }
+
+    private void retrieve(int stuNum, Model model) {
+        Score score = repository.findByStuNum(stuNum);
+        model.addAttribute("s", score);
     }
 
     // 6. 수정 완료 처리하기
@@ -122,9 +144,6 @@ public class ScoreController {
         return "redirect:/score/detail?stuNum=" + stuNum; // 상세보기페이지로 리다이렉트
     }
 
-    private void retrieve(int stuNum, Model model) {
-        Score score = repository.findByStuNum(stuNum);
-        model.addAttribute("s", score);
-    }
+
 
 }
