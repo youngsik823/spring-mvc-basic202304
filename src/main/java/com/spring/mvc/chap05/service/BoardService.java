@@ -1,5 +1,6 @@
 package com.spring.mvc.chap05.service;
 
+import com.spring.mvc.chap05.dto.BoardDetailResponseDTO;
 import com.spring.mvc.chap05.dto.BoardListResponseDTO;
 import com.spring.mvc.chap05.dto.BoardWriteRequestDTO;
 import com.spring.mvc.chap05.entity.Board;
@@ -36,5 +37,14 @@ public class BoardService {
 
     public boolean delete(int bno) {
         return boardRepository.deleteByNo(bno);
+    }
+
+    public BoardDetailResponseDTO getDetail(int bno) {
+
+        Board board = boardRepository.findOne(bno);
+        // 조회수 상승 처리
+        board.setViewCount(board.getViewCount() + 1);
+
+        return new BoardDetailResponseDTO(board);
     }
 }

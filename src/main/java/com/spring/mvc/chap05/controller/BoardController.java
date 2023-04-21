@@ -52,4 +52,12 @@ public class BoardController {
         return "redirect:/board/list";
     }
 
+    // 글 상세 조회 요청
+    @GetMapping("/detail")
+    public String detail(int bno, Model model) {
+        System.out.println("/board/detail : GET");
+        model.addAttribute("b", boardService.getDetail(bno));
+        return "chap05/detail";
+    }
+
 }
