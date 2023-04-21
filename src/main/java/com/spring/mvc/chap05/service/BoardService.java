@@ -1,6 +1,8 @@
 package com.spring.mvc.chap05.service;
 
 import com.spring.mvc.chap05.dto.BoardListResponseDTO;
+import com.spring.mvc.chap05.dto.BoardWriteRequestDTO;
+import com.spring.mvc.chap05.entity.Board;
 import com.spring.mvc.chap05.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,4 +28,10 @@ public class BoardService {
                 .collect(toList())
                 ;
     }
+
+    // 글 등록 중간처리
+    public boolean register(BoardWriteRequestDTO dto) {
+        return boardRepository.save(new Board(dto));
+    }
+
 }

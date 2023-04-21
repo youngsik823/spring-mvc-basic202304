@@ -1,7 +1,9 @@
 .card-container {
     display: flex;
     flex-wrap: wrap;
+    
 }
+
 
 .main-title-wrapper {
     position: relative;
@@ -105,14 +107,14 @@
 }
 
 .card-container .card .card-content {
-
-}
-.card-container .card .card-content p {
+    background-color: #fff;
+    height: 100%;
     text-align: justify;
     font-size: 18px;
     line-height: 1.4;
     padding: 40px 25px;
 }
+
 
 #card-down.card-wrapper {
     transform: translateY(15px);

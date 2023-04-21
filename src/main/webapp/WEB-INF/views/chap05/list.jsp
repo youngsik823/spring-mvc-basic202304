@@ -49,9 +49,9 @@
                             </div>
                         </div>
                         <div class="card-content">
-                            <p>
-                                ${b.shortContent}
-                            </p>
+                            
+                            ${b.shortContent}
+                            
                         </div>
                     </section>
                     <div class="card-btn-group">
@@ -113,7 +113,7 @@
 
         // write button event
         document.querySelector('.add-btn').onclick = e => {
-            window.location.href = '/card/write';
+            window.location.href = '/board/write';
         };
 
     </script>
