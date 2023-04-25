@@ -3,9 +3,7 @@ package com.spring.mvc.chap05.repository;
 import com.spring.mvc.chap05.entity.Board;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static java.util.Comparator.comparing;
 import static java.util.stream.Collectors.toList;
@@ -53,4 +51,8 @@ public class BoardRepositoryImpl
         boardMap.remove(boardNo);
         return true;
     }
+
+
+
+
 }
