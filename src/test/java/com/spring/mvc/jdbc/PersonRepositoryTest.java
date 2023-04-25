@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -19,8 +21,8 @@ class PersonRepositoryTest {
     void saveTest() {
         // given
         Person p = new Person();
-        p.setPersonName("삘리리");
-        p.setPersonAge(10);
+        p.setPersonName("천지호");
+        p.setPersonAge(33);
         // when
         repository.save(p);
         // then
@@ -52,6 +54,21 @@ class PersonRepositoryTest {
         repository.remove(id);
         // then
 
+    }
+
+
+    @Test
+    void findAllTest() {
+        List<Person> people = repository.findAll();
+        for (Person p : people) {
+            System.out.println("p = " + p);
+        }
+    }
+
+    @Test
+    void findOneTest() {
+        Person p = repository.findOne(4L);
+        System.out.println("p = " + p);
     }
 
 }
