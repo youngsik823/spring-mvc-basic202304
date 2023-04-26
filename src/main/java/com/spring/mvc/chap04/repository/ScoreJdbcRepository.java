@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository("jdbc")
@@ -30,7 +32,25 @@ public class ScoreJdbcRepository implements ScoreRepository {
 
     @Override
     public List<Score> findAll(String sort) {
-        return null;
+        List<Score> scoreList = new ArrayList<>();
+
+        try (Connection conn = DriverManager.getConnection(url, username, password)) {
+
+            String sql = "SELECT * FROM tbl_score";
+
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                scoreList.add(new Score(rs));
+            }
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return scoreList;
     }
 
     @Override
