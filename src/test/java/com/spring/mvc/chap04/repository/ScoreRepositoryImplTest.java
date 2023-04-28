@@ -33,7 +33,7 @@ class ScoreRepositoryImplTest {
         assertEquals(3, scoreList.size());
 
         // 나는 리스트의 첫번째 객체의 이름이 뽀로로라고 단언한다.
-        assertEquals("뽀로로", scoreList.get(0).getName());
+        assertEquals("뽀로로", scoreList.get(0).getStuName());
     }
 
 
@@ -49,7 +49,7 @@ class ScoreRepositoryImplTest {
         Score score = repository.findByStuNum(stuNum);
         // then
         assertEquals(33, score.getKor());
-        assertEquals("춘식이", score.getName());
+        assertEquals("춘식이", score.getStuName());
     }
 
     @Test
@@ -90,7 +90,7 @@ class ScoreRepositoryImplTest {
     void saveTest() {
         // given
         Score score = new Score();
-        score.setName("언년이");
+        score.setStuName("언년이");
         score.setKor(100);
         score.setMath(50);
         score.setEng(0);

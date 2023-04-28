@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mvc.chap04.repository.ScoreMapper">
+
+<!--    <resultMap id="sc" type="com.spring.mvc.chap04.entity.Score">-->
+<!--        <result column="stu_name" property="stuName" />-->
+<!--        <result column="stu_num" property="stuNum" />-->
+<!--    </resultMap>-->
+
+    <select id="findAll" resultType="score">
+        SELECT
+            *
+        FROM tbl_score
+    </select>
+
+    <insert id="save">
+        INSERT INTO tbl_score
+         (stu_name, kor, eng, math, total, average, grade)
+        VALUES (#{stuName}, #{kor},
+                #{eng}, #{math}, #{total},
+                #{average}, #{grade})
+    </insert>
+
+    <delete id="deleteByStuNum">
+        DELETE FROM tbl_score
+        WHERE stu_num=#{stuNum}
+    </delete>
+
+    <select id="findByStuNum" resultType="score">
+        SELECT *
+        FROM tbl_score
+        WHERE stu_num=#{stuNum}
+    </select>
+
+</mapper>

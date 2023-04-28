@@ -65,7 +65,7 @@ public class ScoreJdbcRepository implements ScoreRepository {
                     " VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement pstmt = conn.prepareStatement(sql);
 
-            pstmt.setString(1, score.getName());
+            pstmt.setString(1, score.getStuName());
             pstmt.setInt(2, score.getKor());
             pstmt.setInt(3, score.getEng());
             pstmt.setInt(4, score.getMath());
