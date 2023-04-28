@@ -5,6 +5,16 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
+/*
+create table tbl_board (
+	board_no int(10) auto_increment primary key,
+	title VARCHAR(80) not null,
+	content VARCHAR(2000),
+	view_count int(10) default 0,
+	reg_date_time DATETIME default current_timestamp
+);
+ */
+
 @Setter @Getter
 @ToString @EqualsAndHashCode
 @NoArgsConstructor

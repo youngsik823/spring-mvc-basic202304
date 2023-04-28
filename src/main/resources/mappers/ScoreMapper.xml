@@ -13,6 +13,15 @@
         SELECT
             *
         FROM tbl_score
+        <if test="sort == 'num'">
+            ORDER BY stu_num
+        </if>
+        <if test="sort == 'name'">
+            ORDER BY stu_name
+        </if>
+        <if test="sort == 'avg'">
+            ORDER BY average DESC
+        </if>
     </select>
 
     <insert id="save">
