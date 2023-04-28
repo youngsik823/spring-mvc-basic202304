@@ -45,7 +45,8 @@ public class BoardService {
 
         Board board = boardRepository.findOne(bno);
         // 조회수 상승 처리
-        board.setViewCount(board.getViewCount() + 1);
+//        board.setViewCount(board.getViewCount() + 1);
+        boardRepository.upViewCount(bno);
 
         return new BoardDetailResponseDTO(board);
     }

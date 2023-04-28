@@ -30,4 +30,10 @@
         DELETE FROM tbl_board
         WHERE board_no = #{boardNo}
     </delete>
+
+    <update id="upViewCount">
+        update tbl_board
+        set view_count = view_count + 1
+        where board_no = #{boardNo};
+    </update>
 </mapper>

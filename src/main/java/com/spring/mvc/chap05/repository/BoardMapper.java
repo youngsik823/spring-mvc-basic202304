@@ -20,4 +20,7 @@ public interface BoardMapper {
     // 게시물 삭제
     boolean deleteByNo(int boardNo);
 
+    // 조회수 상승
+    void upViewCount(int boardNo);
+
 }
