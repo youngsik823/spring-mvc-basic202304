@@ -2,7 +2,6 @@ package com.spring.mvc.chap05.controller;
 
 import com.spring.mvc.chap05.dto.BoardListResponseDTO;
 import com.spring.mvc.chap05.dto.BoardWriteRequestDTO;
-import com.spring.mvc.chap05.dto.page.Page;
 import com.spring.mvc.chap05.dto.page.PageMaker;
 import com.spring.mvc.chap05.dto.page.Search;
 import com.spring.mvc.chap05.service.BoardService;
@@ -22,6 +21,7 @@ import java.util.List;
 @RequestMapping("/board")
 @Slf4j
 public class BoardController {
+
 
     private final BoardService boardService;
 
@@ -53,6 +53,7 @@ public class BoardController {
     // 글 등록 요청 처리
     @PostMapping("/write")
     public String write(BoardWriteRequestDTO dto) {
+
         System.out.println("/board/write : POST");
         boardService.register(dto);
         return "redirect:/board/list";
@@ -72,6 +73,10 @@ public class BoardController {
         System.out.println("/board/detail : GET");
         model.addAttribute("b", boardService.getDetail(bno));
 //        model.addAttribute("s", search);
+
+
+
+
         return "chap05/detail";
     }
 
