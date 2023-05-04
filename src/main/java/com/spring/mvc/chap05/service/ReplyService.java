@@ -2,6 +2,7 @@ package com.spring.mvc.chap05.service;
 
 import com.spring.mvc.chap05.dto.ReplyDetailResponseDTO;
 import com.spring.mvc.chap05.dto.ReplyListResponseDTO;
+import com.spring.mvc.chap05.dto.ReplyPostRequestDTO;
 import com.spring.mvc.chap05.dto.page.Page;
 import com.spring.mvc.chap05.dto.page.PageMaker;
 import com.spring.mvc.chap05.entity.Reply;
@@ -10,10 +11,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.*;
+import static java.util.stream.Collectors.toList;
 
 @Service
 @RequiredArgsConstructor
@@ -37,6 +38,22 @@ public class ReplyService {
                 .pageInfo(new PageMaker(page, count))
                 .replies(replies)
                 .build();
+    }
+
+    // 댓글 등록 서비스
+    public ReplyListResponseDTO register(final ReplyPostRequestDTO dto)
+        throws SQLException
+    {
+        log.debug("register service execute!!");
+        // dto를 entity로 변환
+        Reply reply = dto.toEntity();
+        boolean flag = replyMapper.save(reply);
+        // 예외 처리
+        if (!flag) {
+            log.warn("reply registered fail!");
+            throw new SQLException("댓글 저장 실패!");
+        }
+        return getList(dto.getBno(), new Page(1, 10));
     }
 
 }
