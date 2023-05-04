@@ -1,9 +1,9 @@
 package com.spring.mvc.chap05.api;
 
-import com.spring.mvc.chap05.dto.ReplyListResponseDTO;
-import com.spring.mvc.chap05.dto.ReplyPostRequestDTO;
+import com.spring.mvc.chap05.dto.request.ReplyModifyRequestDTO;
+import com.spring.mvc.chap05.dto.response.ReplyListResponseDTO;
+import com.spring.mvc.chap05.dto.request.ReplyPostRequestDTO;
 import com.spring.mvc.chap05.dto.page.Page;
-import com.spring.mvc.chap05.entity.Reply;
 import com.spring.mvc.chap05.service.ReplyService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,9 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.sql.SQLException;
-import java.util.List;
 
 import static org.springframework.http.ResponseEntity.*;
 
@@ -103,6 +100,30 @@ public class ReplyController {
                     .body(e.getMessage());
         }
 
+    }
+
+
+    // 댓글 수정 요청
+    @RequestMapping(method = {RequestMethod.PUT, RequestMethod.PATCH})
+    public ResponseEntity<?> modify(
+            @Validated @RequestBody ReplyModifyRequestDTO dto
+            , BindingResult result
+    ) {
+
+        if (result.hasErrors()) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(result.toString());
+        }
+
+        log.info("/api/v1/replies PUT!");
+        try {
+            ReplyListResponseDTO responseDTO = replyService.modify(dto);
+            return ResponseEntity.ok().body(responseDTO);
+        } catch (Exception e) {
+            log.warn("500 status code! caused by: {}", e.getMessage());
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
     }
 
 
