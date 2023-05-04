@@ -18,6 +18,8 @@ import static org.springframework.http.ResponseEntity.*;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/replies")
 @Slf4j
+// 클라이언트의 접근을 어떤 app에서만 허용할것인가
+@CrossOrigin(origins = {"http://127.0.0.1:5500"})
 public class ReplyController {
 
     private final ReplyService replyService;
