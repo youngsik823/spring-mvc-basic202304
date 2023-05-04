@@ -9,7 +9,10 @@ import com.spring.mvc.chap05.entity.Reply;
 import com.spring.mvc.chap05.repository.ReplyMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -54,6 +57,29 @@ public class ReplyService {
             throw new SQLException("댓글 저장 실패!");
         }
         return getList(dto.getBno(), new Page(1, 10));
+    }
+
+    // 댓글 삭제 서비스
+    @Transactional // 트랜잭션 처리
+    public ReplyListResponseDTO delete(final long replyNo)
+        throws Exception {
+
+        long boardNo = replyMapper.findOne(replyNo).getBoardNo();
+        replyMapper.deleteOne(replyNo);
+
+        return getList(
+                boardNo
+                , new Page(1, 10)
+        );
+    }
+
+    // 댓글 수정 요청
+    @PutMapping("/{replyNo}")
+    public ResponseEntity<?> modify(
+            // DTO새로 만드세요 검증 넣으세요~
+    ) {
+
+        return null;
     }
 
 }

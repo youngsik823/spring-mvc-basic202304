@@ -78,4 +78,32 @@ public class ReplyController {
     }
 
 
+    // 댓글 삭제 요청
+    @DeleteMapping("/{replyNo}")
+    public ResponseEntity<?> remove(
+            @PathVariable(required = false) Long replyNo
+    ) {
+        if (replyNo == null) {
+            return ResponseEntity
+                    .badRequest()
+                    .body("댓글 번호를 보내주세요!");
+        }
+
+        log.info("/api/v1/replies/{} DELETE!", replyNo);
+
+        try {
+            ReplyListResponseDTO responseDTO
+                    = replyService.delete(replyNo);
+            return ResponseEntity
+                    .ok()
+                    .body(responseDTO);
+        } catch (Exception e) {
+            return ResponseEntity
+                    .internalServerError()
+                    .body(e.getMessage());
+        }
+
+    }
+
+
 }
